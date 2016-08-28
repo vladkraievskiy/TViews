@@ -9,7 +9,14 @@
     <vkraevskiy.com.tviews.TButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:typeface="@string/aa_haymaker"
         android:textSize="24sp"
+        app:typeface="@string/aa_haymaker"
         android:text="qweqe"/>
+
+    <vkraevskiy.com.tviews.TTextView
+        android:layout_width="wrap_content"
+        android:text="asdad"
+        app:typeface="@string/opensans_regular"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -24,13 +24,13 @@ final class TypefaceUtil {
 
         TypedArray typedArray = context.obtainStyledAttributes(
                 attrs,
-                R.styleable.TTextView,
+                R.styleable.TView,
                 defStyleAttr,
                 defStyleRes
         );
 
         try {
-            String font = typedArray.getString(R.styleable.TTextView_typeface);
+            String font = typedArray.getString(R.styleable.TView_typeface);
 
             if (TextUtils.isEmpty(font)) {
                 return;

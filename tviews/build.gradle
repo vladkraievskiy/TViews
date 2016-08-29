@@ -9,9 +9,6 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -21,11 +18,75 @@ android {
     }
 }
 
+project.afterEvaluate {
+    preBuild.dependsOn("generateFontNames")
+}
+
+task generateFontNames {
+    println("\n----- generateFontNames ------\n")
+
+    rootProject.allprojects.each { p ->
+        if (rootDir.absolutePath.equals(p.projectDir.absolutePath)) {
+            return
+        }
+
+        File fontsStringXml = new File(p.projectDir, "src/main/res/values/generated_fonts.xml")
+        if (fontsStringXml.exists()) {
+            if (!fontsStringXml.delete()) {
+                println("-- some error deleting ${fontsStringXml.getAbsolutePath()}")
+            }
+        }
+
+        File assets = new File(p.projectDir, "src/main/assets")
+
+        File fontsDir = new File(assets, "fonts")
+
+        if (!fontsDir.exists() || !fontsDir.isDirectory()) {
+            println("\n----- fonts dirs not found for ${p.project} -----")
+            return
+        }
+
+        println("finded fonts directory: ${fontsDir.absolutePath}")
+
+        def fonts = new HashSet<String>()
+        fontsDir.listFiles().each {
+            fonts.add(it.getName())
+            println("font: ${it.getName()}")
+        }
+
+        if (fonts.isEmpty()) {
+            println("\n----- fonts not found for ${p.project} -----")
+            return
+        }
+
+        if (!fontsStringXml.createNewFile()) {
+            println("\n----- can't create xml file for ${p.project} -----")
+            return
+        }
+
+        StringBuilder builder = new StringBuilder(
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<!-- Don't edit this file. It's generated at every build. -->\n" +
+                        "<resources>"
+        )
+
+        fonts.each {
+            String xmlFontName = it.substring(0, it.lastIndexOf(".")).toLowerCase()
+            xmlFontName = xmlFontName.replace("-", "_")
+
+            builder.append("\n   <string name=\"$xmlFontName\">$it</string>")
+        }
+
+        builder.append("\n</resources>")
+
+        fontsStringXml.write(builder.toString())
+
+        println("\n----- xml file created succesfully ------")
+    }
+
+    println("\n----- generateFontNames finished ------\n")
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:appcompat-v7:24.2.0'
-    testCompile 'junit:junit:4.12'
 }

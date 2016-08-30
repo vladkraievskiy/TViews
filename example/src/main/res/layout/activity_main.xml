@@ -10,13 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        app:typeface="@string/aa_haymaker"
+        app:typeface="@string/font_aa_haymaker"
         android:text="qweqe"/>
 
     <vkraevskiy.com.tviews.TTextView
         android:layout_width="wrap_content"
         android:text="asdad"
-        app:typeface="@string/opensans_regular"
+        app:typeface="@string/font_opensans_regular"
         android:layout_height="wrap_content"/>
-
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+@SuppressWarnings("unused")
 public class TButton extends Button {
     public TButton(Context context, AttributeSet attrs) {
         super(context, attrs);

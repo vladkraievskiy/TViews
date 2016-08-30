@@ -12,4 +12,48 @@
     <declare-styleable name="TButton">
         <attr name="typeface"/>
     </declare-styleable>
+
+    <declare-styleable name="TAutoCompleteTextView">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TChronometer">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TDigitalClock">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TEditText">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TExtractEditText">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TMultiAutoCompleteTextView">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TSwitch">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TCheckBox">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TRadioButton">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TToggleButton">
+        <attr name="typeface"/>
+    </declare-styleable>
+
+    <declare-styleable name="TTextClock">
+        <attr name="typeface"/>
+    </declare-styleable>
 </resources>

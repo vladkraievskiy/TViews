@@ -2,17 +2,17 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -71,8 +71,7 @@ task generateFontNames {
         )
 
         fonts.each {
-            String xmlFontName = it.substring(0, it.lastIndexOf(".")).toLowerCase()
-            xmlFontName = xmlFontName.replace("-", "_")
+            String xmlFontName = "font_" + it.substring(0, it.lastIndexOf(".")).toLowerCase().replace("-", "_")
 
             builder.append("\n   <string name=\"$xmlFontName\">$it</string>")
         }
@@ -88,5 +87,5 @@ task generateFontNames {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-annotations:24.2.0'
 }

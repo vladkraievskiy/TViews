@@ -20,6 +20,10 @@ final class TypefaceUtil {
     }
 
     static void initializeView(TextView view, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        if (view.isInEditMode()) {
+            return;
+        }
+
         Context context = view.getContext();
 
         TypedArray typedArray = context.obtainStyledAttributes(

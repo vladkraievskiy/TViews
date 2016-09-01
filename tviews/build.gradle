@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'tviews'
+
+    publishedGroupId = 'vkraevskiy.com.tviews'
+    libraryName = 'TViews'
+    artifact = 'tviews'
+
+    libraryDescription = 'A library for easy to use custom fonts from xml.'
+
+    siteUrl = 'https://github.com/alwayswannasleep/TViews'
+    gitUrl = 'https://github.com/alwayswannasleep/TViews.git'
+
+    libraryVersion = '0.9.0'
+
+    developerId = 'alwayswannasleep'
+    developerName = 'Vlad Kraevskiy'
+    developerEmail = 'vladkraevskiy@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -8,84 +32,20 @@ android {
         minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0.0"
+        versionName "0.9.0"
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFile 'proguard-rules.pro'
         }
     }
-}
-
-project.afterEvaluate {
-    preBuild.dependsOn("generateFontNames")
-}
-
-task generateFontNames {
-    println("\n----- generateFontNames ------\n")
-
-    rootProject.allprojects.each { p ->
-        if (rootDir.absolutePath.equals(p.projectDir.absolutePath)) {
-            return
-        }
-
-        File fontsStringXml = new File(p.projectDir, "src/main/res/values/generated_fonts.xml")
-        if (fontsStringXml.exists()) {
-            if (!fontsStringXml.delete()) {
-                println("-- some error deleting ${fontsStringXml.getAbsolutePath()}")
-            }
-        }
-
-        File assets = new File(p.projectDir, "src/main/assets")
-
-        File fontsDir = new File(assets, "fonts")
-
-        if (!fontsDir.exists() || !fontsDir.isDirectory()) {
-            println("\n----- fonts dirs not found for ${p.project} -----")
-            return
-        }
-
-        println("finded fonts directory: ${fontsDir.absolutePath}")
-
-        def fonts = new HashSet<String>()
-        fontsDir.listFiles().each {
-            fonts.add(it.getName())
-            println("font: ${it.getName()}")
-        }
-
-        if (fonts.isEmpty()) {
-            println("\n----- fonts not found for ${p.project} -----")
-            return
-        }
-
-        if (!fontsStringXml.createNewFile()) {
-            println("\n----- can't create xml file for ${p.project} -----")
-            return
-        }
-
-        StringBuilder builder = new StringBuilder(
-                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                        "<!-- Don't edit this file. It's generated at every build. -->\n" +
-                        "<resources>"
-        )
-
-        fonts.each {
-            String xmlFontName = "font_" + it.substring(0, it.lastIndexOf(".")).toLowerCase().replace("-", "_")
-
-            builder.append("\n   <string name=\"$xmlFontName\">$it</string>")
-        }
-
-        builder.append("\n</resources>")
-
-        fontsStringXml.write(builder.toString())
-
-        println("\n----- xml file created succesfully ------")
-    }
-
-    println("\n----- generateFontNames finished ------\n")
 }
 
 dependencies {
     compile 'com.android.support:support-annotations:24.2.0'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

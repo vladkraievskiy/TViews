@@ -5,7 +5,7 @@ import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
 
 @SuppressWarnings("unused")
-public final class TTextInputEditText extends TextInputEditText {
+public class TTextInputEditText extends TextInputEditText {
 
     public TTextInputEditText(Context context, AttributeSet attrs) {
         super(context, attrs);

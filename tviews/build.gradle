@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-def projectVersion = "1.0.0"
+def projectVersion = "1.0.1"
 def gitUrl = 'https://github.com/alwayswannasleep/TViews.git'
 def siteUrl = 'https://github.com/alwayswannasleep/TViews'
 
